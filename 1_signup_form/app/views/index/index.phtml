@@ -6,7 +6,35 @@
 </head>
 <body>
     <h1>Home</h1>
+    <?= $this->tag->linkTo(['signup', 'Sign Up!', 'class' => 'btn btn-primary']) ?>
 
-    <?= $this->tag->linkTo('signup', 'Sign Up!') ?>
+    <br>
+    <br>
+    <h2>List of Users</h2>
+    <br>
+
+    <table class="table table-bordered table-hover">
+        <thead class="hthead-light">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $u): ?>
+            <tr>
+                <td><?= $u->id ?></td>
+                <td><?= $u->name ?></td>
+                <td><?= $u->email ?></td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Users quantity: <?= $users->count() ?></td>
+            </tr>
+        </tfoot>
+    </table>
 </body>
 </html>
