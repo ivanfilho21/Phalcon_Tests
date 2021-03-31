@@ -1,9 +1,14 @@
 <?php
 
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);
+error_reporting(E_ALL);
+
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Db\Adapter\Pdo\MySql as DbAdapter;
 use Phalcon\Mvc\Url as UrlProvider;
 
 // Define some absolute path constants to aid in locating resources
@@ -42,6 +47,21 @@ $di->set(
         $url = new UrlProvider();
         $url->setBaseUri('/phalcon/1_signup_form/');
         return $url;
+    }
+);
+
+// Setup database connection
+$di->set(
+    'db',
+    function () {
+        return new DbAdapter(
+            [
+                'host' => '127.0.0.1',
+                'username' => 'ivanfilho',
+                'password' => '',
+                'dbname' => 'phalcon_signup_db'
+            ]
+        );
     }
 );
 
