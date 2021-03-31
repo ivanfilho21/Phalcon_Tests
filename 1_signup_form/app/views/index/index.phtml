@@ -1,0 +1,12 @@
+<?php use Phalcon\Tag ?>
+<?php $this->tag->setDoctype(Tag::HTML5) ?>
+<?= $this->tag->getDoctype() ?>
+<html lang="pt-br">
+<head>
+</head>
+<body>
+    <h1>Home</h1>
+
+    <?= $this->tag->linkTo('signup', 'Sign Up!') ?>
+</body>
+</html>
