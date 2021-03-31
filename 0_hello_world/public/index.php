@@ -43,7 +43,7 @@ $di['view'] = function() {
 // configurar URL principal
 $di['url'] = function() {
     $url = new UrlProvider();
-    $url->setBaseUrl('/');
+    $url->setBaseUri('/phalcon/0_hello_world/');
     return $url;
 };
 
@@ -61,9 +61,9 @@ $di['db'] = function() {
 $app = new Application($di);
 
 try {
-    $res = $app->handle();
-    $res->send();
-    // echo $app->handle()->getContent();
+    // $res = $app->handle();
+    // $res->send();
+    echo $app->handle()->getContent();
 } catch(Exception $e) {
     echo 'Erro na execução do App.<br>' .$e->getMessage() .'.';
 }
