@@ -1,19 +1,21 @@
 <h2>Sign up using this form</h2>
 
-<?php echo $this->tag->form("signup/register"); ?>
-
-    <p>
+<?php echo $this->tag->form('signup'); ?>
+    
+    <div class="form-group">
         <label for="name">Name</label>
-        <?php echo $this->tag->textField("name"); ?>
-    </p>
+        <?php echo $this->tag->textField(['name', 'class' => 'form-control']); ?>
+        <span class="text-danger"><?= $errors['name'] ?? '' ?></span>
+    </div>
 
-    <p>
+    <div class="form-group">
         <label for="email">E-Mail</label>
-        <?php echo $this->tag->textField("email"); ?>
-    </p>
+        <?php echo $this->tag->textField(['email', 'class' => 'form-control']); ?>
+        <span class="text-danger "><?= $errors['email'] ?? '' ?></span>
+    </div>
 
     <p>
-        <?php echo $this->tag->submitButton("Register"); ?>
+        <?php echo $this->tag->submitButton('Register'); ?>
     </p>
 
 </form>

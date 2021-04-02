@@ -4,6 +4,8 @@ ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
 error_reporting(E_ALL);
 
+session_start();
+
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
@@ -24,6 +26,12 @@ $loader->registerDirs(
         APP_PATH . '/models/',
     ]
 );
+
+/* $loader->registerNamespaces(
+    [
+        'App\Forms' => APP_PATH . '/forms/'
+    ]
+); */
 
 $loader->register();
 
@@ -49,6 +57,26 @@ $di->set(
         return $url;
     }
 );
+
+/* $di->setShared('session', function() {
+    $session = new Phalcon\Session\Adapter\Files();
+    $session->start();
+    return $session;
+}); */
+
+$di->set(
+    'forms',
+    function () {
+        return new Phalcon\Forms\Manager();
+    }
+);
+/* 
+$di->set(
+    'flash',
+    function () {
+        return new Phalcon\Flash\Session();
+    }
+); */
 
 // Setup database connection
 $di->set(
