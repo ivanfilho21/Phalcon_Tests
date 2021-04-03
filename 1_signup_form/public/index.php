@@ -27,11 +27,11 @@ $loader->registerDirs(
     ]
 );
 
-/* $loader->registerNamespaces(
+$loader->registerNamespaces(
     [
         'App\Forms' => APP_PATH . '/forms/'
     ]
-); */
+);
 
 $loader->register();
 
@@ -97,9 +97,9 @@ $application = new Application($di);
 
 try {
     // Handle the request
-    $response = $application->handle();
-
-    $response->send();
+    // $response = $application->handle();
+    // $response->send();
+    echo $application->handle()->getContent();
 } catch (\Exception $e) {
     echo 'Exception: ', $e->getMessage();
 }
