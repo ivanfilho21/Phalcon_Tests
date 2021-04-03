@@ -1,0 +1,57 @@
+<?php use Phalcon\Tag ?>
+<?php $this->tag->setDoctype(Tag::HTML5) ?>
+<?= $this->tag->getDoctype() ?>
+<html lang="pt-br">
+<head>
+</head>
+<body>
+    <h1>Posts</h1>
+    <?= $this->tag->linkTo(['posts/create', 'New Post', 'class' => 'btn btn-primary']) ?>
+
+    <?php if ($size == 0): ?>
+    <?php else: ?>
+    <br>
+    <br>
+
+    <?php if (isset($msg)): ?>
+    <div class="alert alert-success" role="alert">
+        <?= $msg ?>
+    </div>
+    <?php endif ?>
+
+    <h2>List of Posts</h2>
+    <br>
+
+    <table class="table table-bordered table-hover">
+        <thead class="hthead-light">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Updated</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($posts as $p): ?>
+            <tr>
+                <td><?= $p->id ?></td>
+                <td><?= $p->title ?></td>
+                <td><?= $p->created_at ?></td>
+                <td><?= $p->updated_at ?></td>
+                <td>
+                    <?= $this->tag->linkTo(['posts/edit/' .$p->id, 'Edit', 'class' => 'btn btn-primary']) ?>
+                    <?= $this->tag->linkTo(['posts/delete/' .$p->id, 'Delete', 'class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete this post?\')']) ?>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Posts quantity: <?= $size ?></td>
+            </tr>
+        </tfoot>
+    </table>
+    <?php endif ?>
+</body>
+</html>

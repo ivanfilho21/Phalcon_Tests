@@ -1,0 +1,16 @@
+<h2>New Post</h2>
+
+<?= $this->tag->form('posts/create') ?>
+    <div class="form-group">
+        <label for="title">Título</label>
+        <?= $form->render('title') ?>
+        <span class="text text-danger"><?= $errors['title'] ?? '' ?></span>
+    </div>
+
+    <div class="form-group">
+        <label for="body">Corpo</label>
+        <?= $form->render('body') ?>
+    </div>
+
+    <?= $this->tag->submitButton('Register'); ?>
+</form>
