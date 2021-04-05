@@ -5,7 +5,8 @@ use Phalcon\Mvc\Controller;
 class IndexController extends Controller {
     
     public function indexAction() {
-        // sends the variable 'users' to the view
-        $this->view->users = Users::find();
+        $this->view->users = Users::find()->count();
+        $this->view->posts = Posts::find()->count();
+        $this->view->categories = Categories::find()->count();
     }
 }

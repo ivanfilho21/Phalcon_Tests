@@ -1,0 +1,13 @@
+<h2>New Category</h2>
+
+<?= $this->flash->output() ?>
+
+<?= $this->tag->form('categories/create') ?>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <?= $form->render('name') ?>
+        <span class="text text-danger"><?= $errors['name'] ?? '' ?></span>
+    </div>
+
+    <?= $this->tag->submitButton('Register'); ?>
+</form>

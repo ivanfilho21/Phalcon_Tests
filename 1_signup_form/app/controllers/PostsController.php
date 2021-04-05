@@ -19,7 +19,6 @@ class PostsController extends Controller {
                 unset($_SESSION[$key]);
             }
         }
-
     }
 
     public function createAction() {
@@ -27,8 +26,6 @@ class PostsController extends Controller {
         $post = new Posts();
 
         if ($this->request->isPost()) {
-            $res = $form->isValid($this->request->getPost());
-
             $res = $this->validation($form);
             
             if (is_array($res)) {
@@ -36,30 +33,20 @@ class PostsController extends Controller {
             } else {
                 $this->savePost($post);
                 $_SESSION['success_msg'] = "The post \"$post->title\" was created.";
-                $this->response->redirect('posts');
+                return $this->response->redirect('posts');
             }
-
-            /* if (!$res) {
-                $msg = $form->getMessages();
-                
-                foreach ($msg as $m) {
-                    $key = $m->getField();
-                    $e[$key] = $m->getMessage();
-                }
-            } else {
-                $now = date($this->datetimeFormat);
-                $post->title = $this->request->getPost('title');
-                $post->body = $this->request->getPost('body');
-                $post->created_at = $now;
-                $post->updated_at = $now;
-
-                $post->create();
-                $this->response->redirect('posts');
-            } */
-
         }
 
+        $cats = Categories::find();
+        $list = [];
+        foreach ($cats as $c) {
+            $list[] = $c->id;
+        }
+        
         $this->view->form = $form;
+        $this->view->categories = $list;
+
+        $this->view->p = $this->request->getPost();
     }
 
     public function editAction($id = 0) {
@@ -78,7 +65,7 @@ class PostsController extends Controller {
             } else {
                 $this->savePost($post, false);
                 $_SESSION['success_msg'] = "The post \"$post->title\" was updated.";
-                $this->response->redirect('posts');
+                return $this->response->redirect('posts');
             }
 
         }
@@ -122,12 +109,29 @@ class PostsController extends Controller {
         $post->title = $this->request->getPost('title');
         $post->body = $this->request->getPost('body');
 
+        $post->published = $this->request->getPost('published') ?? 0;
+
+        if (!empty($post->published)) {
+            $post->publishing_date = $this->request->getPost('publishing_date');
+        }
+
         if ($recordCreation) {
             $post->created_at = $now;
         }
 
         $post->updated_at = $now;
 
-        $post->save();
+        $post->create();
+        $postId = $post->getWriteConnection()->lastInsertId();
+        
+
+        $cats = $this->request->getPost('category');
+
+        foreach ($cats as $catId) {
+            $postCategory = new PostsCategories();
+            $postCategory->id_post = $postId;
+            $postCategory->id_category = $catId;
+            $postCategory->create();
+        }
     }
 }

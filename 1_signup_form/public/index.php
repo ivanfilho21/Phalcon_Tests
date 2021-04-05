@@ -29,7 +29,8 @@ $loader->registerDirs(
 
 $loader->registerNamespaces(
     [
-        'App\Forms' => APP_PATH . '/forms/'
+        'App\Models' => APP_PATH . '/models/',
+        'App\Forms' => APP_PATH . '/forms/',
     ]
 );
 
@@ -70,13 +71,13 @@ $di->set(
         return new Phalcon\Forms\Manager();
     }
 );
-/* 
+
 $di->set(
     'flash',
     function () {
         return new Phalcon\Flash\Session();
     }
-); */
+);
 
 // Setup database connection
 $di->set(
