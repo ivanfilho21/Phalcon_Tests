@@ -1,0 +1,7 @@
+{
+    "name": "phalcon/invo",
+    "description": "A sample application using the Phalcon Framwork.",
+    "require": {
+        "vlucas/phpdotenv": "^4.0"
+    }
+}

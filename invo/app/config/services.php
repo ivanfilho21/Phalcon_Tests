@@ -1,22 +1,26 @@
 <?php
 
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\Url as UrlResolver;
-
 $di->set('view', function () {
     global $config;
 
-    $view = new View();
-    $view->setViewsDir($config->application->viewsDir);
+    $view = new Phalcon\Mvc\View();
+    $view->setViewsDir(APP_PATH . $config->application->viewsDir);
     return $view;
 });
 
 $di->set('url', function () {
     global $config;
 
-    $url = new UrlResolver();
+    $url = new Phalcon\Mvc\Url();
     $url->setBaseUri($config->application->baseUri);
     return $url;
+});
+
+$di->set('session', function () {
+    $session = new Phalcon\Session\Adapter\Files();
+    $session->start();
+
+    return $session;
 });
 
 $di->set('flash', function () {
