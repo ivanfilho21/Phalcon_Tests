@@ -1,15 +1,17 @@
 <?php
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', true);
-date_default_timezone_set('America/Sao_Paulo');
 
-define('APP_PATH', realpath('..'));
+define('APP_PATH', realpath('..') . '/');
 
 try {
-    $array = include APP_PATH . '/app/config/config.php';
-    $config = new Phalcon\Config($array);
+    $config = new Phalcon\Config\Adapter\Ini(APP_PATH . '/config.ini');
+
+    define('DEBUG_MODE', $config->global->debugMode);
+
+    ini_set('display_errors', DEBUG_MODE);
+    ini_set('display_startup_errors', DEBUG_MODE);
+    date_default_timezone_set($config->global->timeZone);
 
     $loader = new Phalcon\Loader();
     include APP_PATH . '/app/config/loader.php';
@@ -24,6 +26,8 @@ try {
     $response = $application->handle();
     $response->send();
 } catch(\Exception $e) {
-    echo $e->getMessage() . '<br>';
-    echo '<pre>' . $e->getTraceAsString() . '</pre>';
+    if (DEBUG_MODE) {
+        echo $e->getMessage() . '<br>';
+        echo '<pre>' . $e->getTraceAsString() . '</pre>';
+    }
 }
