@@ -1,7 +1,7 @@
 <?php
 
 class Likes extends Phalcon\Mvc\Model {
-    public $id, $qty;
+    private $id, $qty;
 
     public function getId() {
         return $this->id;
