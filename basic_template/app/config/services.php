@@ -7,7 +7,7 @@ $di->set('view', function () {
     global $config;
 
     $view = new View();
-    $view->setViewsDir($config->application->viewsDir);
+    $view->setViewsDir(APP_PATH . $config->application->viewsDir);
     return $view;
 });
 
@@ -34,7 +34,7 @@ $di->set('db', function () {
     global $config;
 
     $dbConfig = $config->database->toArray();
-    $adapater = $dbConfig['adapter'];
+    $adapter = $dbConfig['adapter'];
     unset($dbConfig['adapter']);
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $adapter;
 
