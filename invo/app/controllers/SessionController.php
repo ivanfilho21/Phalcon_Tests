@@ -2,8 +2,13 @@
 
 class SessionController extends ControllerBase {
 
+    function initialize() {
+        parent::initialize();
+        $this->tag->setTitle('Sign in');
+    }
+
     function indexAction() {
-        //
+        Users::count();
     }
 
     function startAction() {
