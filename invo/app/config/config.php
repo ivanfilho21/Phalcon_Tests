@@ -18,6 +18,7 @@ return new Config([
         'modelsDir' => getenv('MODELS_DIR'),
         'formsDir' => getenv('FORMS_DIR'),
         'viewsDir' => getenv('VIEWS_DIR'),
+        'voltCacheDir' => getenv('VOLT_CACHE_DIR'),
         'baseUri' => getenv('BASE_URI'),
     ]
 ]);

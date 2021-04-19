@@ -51,11 +51,9 @@ $di->set('flash', function () {
 
 $di->set('router', include realpath('../app/config/router.php'));
 
-$di->set('db', function () {
-    global $config;
-
+$di->set('db', function () use ($config) {
     $dbConfig = $config->database->toArray();
-    $adapater = $dbConfig['adapter'];
+    $adapter = $dbConfig['adapter'];
     unset($dbConfig['adapter']);
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $adapter;
 
